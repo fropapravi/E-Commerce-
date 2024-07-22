@@ -65,11 +65,11 @@
 #7. How many units were sold per product category during the sale?  
   
     SELECT CASE  
-    WHEN P.Productid =  1 then 'Laptop' 
-    WHEN P.Productid = 2 then 'Smartphone' 
-    WHEN P.Productid = 3 then  'Headphones' 
-    WHEN P.Productid = 4 THEN 'E-Reader' 
-    ELSE 'Other' 
+      WHEN P.Productid =  1 then 'Laptop' 
+      WHEN P.Productid = 2 then 'Smartphone' 
+      WHEN P.Productid = 3 then  'Headphones' 
+      WHEN P.Productid = 4 THEN 'E-Reader' 
+      ELSE 'Other' 
     END AS Category, 
     SUM(S.QuantitySold) AS units_sold 
     FROM Sales S 
