@@ -14,13 +14,13 @@
     FROM Transactions T 
     left join Customers C 
     on T.Customerid = C.Customerid 
-    group by Customer 
+    group by Customers 
     order by no_of_transaction desc 
     limit 1 
   
 #3. List products that have never been sold. 
   
-    SELECT T.Quantity P.Productname 
+    SELECT T.Quantity, P.Productname 
     FROM Transactions T 
     LEFT JOIN Products P 
     ON P.Productid = T.Productid  
@@ -38,7 +38,7 @@
   
 #5. Which product category is most popular in terms of quantity sold? 
   
-    SELECT P.Categoty MAX(T.Quantity) AS most_popular  
+    SELECT P.Category, MAX(T.Quantity) AS most_popular  
     FROM Products P  
     LEFT JOIN Transactions T 
     ON P.Productid = T.Productid 
