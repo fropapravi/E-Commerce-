@@ -78,7 +78,7 @@
   
     SELECT C.Country, ROUND(AVG(P.Price)) AS AVG_SPENT  
     FROM Customers C 
-    LEFT JOIN Transctions T 
+    LEFT JOIN Transactions T 
     ON C.Customerid = T. Customerid 
     LEFT JOIN Products P 
     ON T.Productid = P.Productid 
