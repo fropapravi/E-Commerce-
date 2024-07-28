@@ -10,7 +10,7 @@ To analyze sales data to derive insights of E-commerce for developing marketing 
 - Windows Function (ROW_NUMBERS, RANK, DENS_RANK)
 - CTE tables
 
-## Steps to form tables as Follows
+## Steps to Form Tables as Follows For Case - 1
 
 - Create Customers table
 
