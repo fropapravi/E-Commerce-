@@ -98,9 +98,7 @@ ON
   P.Productid = T.Productid 
   ```
 ```
-OutPut
-
-Laptop Generates 2X Revenue in the product list
+Solution: Laptop Generates 2X Revenue in the product List
 ```
 
 - Which customer made the highest number of transactions? 
@@ -126,7 +124,9 @@ ORDER BY
 DESC
 LIMIT 1 
 ```
-
+```
+Solution: John Doe as seen regularly
+```
 - List products that have never been sold. 
   
 ```sql
@@ -142,6 +142,10 @@ ON
 WHERE 
   T.Quantity = 0 
   ```
+```
+Solution: 100% Product Sold
+``` 
+ 
 
 - What is the average transaction value for each country? 
 
@@ -164,7 +168,9 @@ ON
 GROUP BY 
   C.Country 
 ```
-
+```
+Solution: Canada had 1.5X Transaction as Compare to USA & UK
+```
 - Which product category is most popular in terms of quantity sold? 
 
 ```sql
@@ -185,6 +191,9 @@ ORDER BY
   most_popular desc 
 LIMIT 1 
 ```
+```
+Solution: Furniture is the top selling category
+```
 - Identify customers who have spent more than $1000 in total?
 ```sql
 SELECT 
@@ -204,7 +213,9 @@ GROUP BY
 HAVING 
   SUM(P.Price) > 1000 
   ```
-
+```
+Solution: Again, John Doe from USA
+```
 - How many transactions involved purchasing more than one item ? 
 ```sql
 SELECT 
@@ -216,6 +227,9 @@ FROM
 WHERE 
   Quantity > 1 
   ```
+```
+Solution: 2 Transactions
+```
 - What is the difference in total sales between 'Electronics' and 'Furniture' categories? 
 ```sql 
 SELECT  
@@ -234,6 +248,10 @@ INNER JOIN
 ON 
   P.Productid = T.Productid 
   ```
+```
+Solution: There is total 1450RS/- Difference in Electronic & Furniture 
+categories
+```
 - Which country has the highest average spending per transaction? 
 ```sql
 SELECT 
@@ -254,6 +272,11 @@ ON
 GROUP BY 
   C.Country 
   ```
+```   
+Solution: Cannada = 700 
+     USA = 455 
+     UK = 15
+```
 - For each product, calculate the total revenue and categorize its sales volume as 'High' (more than $500), 'Medium' ($100-$500), or 'Low' (less than $100). 
 ```sql
 SELECT 
@@ -279,7 +302,13 @@ ORDER BY
   SUM(P.Price) 
 DESC
 ```
+```
+Solution:  Laptop and Smartphone are under ‘Highest Categories’ 
+           Table under ‘Medium category’ 
+            Book under ‘Low category’
+```
 ------ End of Query 1 ------
+
 ## Steps to Form Tables as Follows For Case - 2
 
 - Products Table
@@ -368,7 +397,9 @@ AND
 GROUP BY 
   S.Saledate 
  ```
-
+```
+Solution: Revenue Dropedto -65% from the first date to the last date
+```
 - What was the total discount given during the sale period? 
 ```sql
 SELECT  
@@ -392,7 +423,9 @@ AND
     GROUP BY  P.Productname 
   
 ```
-
+```
+Solution: Laptop as 60-65% total discount as compare to E-Reader, Headphones & Smartphone
+```
 - How does the sale performance compare in terms of units sold before and during the sale? 
 ```sql  
 SELECT 
@@ -404,7 +437,9 @@ SELECT
       AS units_sold_before_sale 
 FROM Sales S 
   ```
-
+```
+22 units sold before sales & droped 2 units during sales
+```
 - What was the average discount rate applied to products sold during the sale? 
 ```sql
 SELECT 
@@ -424,6 +459,10 @@ BETWEEN
 AND 
   '2023-03-17' 
   ```
+```
+Solution: 11.9% Discount applied during sales
+
+```
 - Which day had the highest revenue, and what was the top-selling product on that day? 
 ```sql 
 SELECT
@@ -447,6 +486,9 @@ ORDER BY
   Revenue 
 DESC 
 
+```
+```
+Solution: 05/03/2023 had highest sales
 ```
 - How many units were sold per product category during the sale?  
 ```sql 
@@ -477,7 +519,9 @@ AND
 GROUP BY
   Category 
   ```
-
+```
+Solutions: Headphone cateogeries as sold 0.5X as compare to others
+```
 - How many transactions involved purchasing more than one item ?
 
 ``` sql
@@ -491,6 +535,9 @@ FROM
 WHERE 
   Quantity > 1 
   ```
+```
+2 transactions involved purchasing more than one item
+```
 - What was the total number of transactions each day? 
 ```sql
 SELECT 
@@ -517,7 +564,9 @@ ORDER BY
   S.Saledate 
 ASC 
 ```
-  
+```
+Total number of transcations was 1 each day
+```
 - Which product had the largest discount impact on revenue? 
 ```sql 
 SELECT 
@@ -537,6 +586,9 @@ ORDER BY
   Discount_Impact 
 DESC 
 LIMIT 1
+```
+```
+Laptop had the largest discount impact on revenue
 ```
 
 Thank you 
