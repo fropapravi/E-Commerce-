@@ -97,6 +97,11 @@ LEFT JOIN
 ON 
   P.Productid = T.Productid 
   ```
+```
+OutPut
+
+Laptop Generates 2X Revenue in the product list
+```
 
 - Which customer made the highest number of transactions? 
 
