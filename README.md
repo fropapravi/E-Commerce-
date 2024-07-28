@@ -14,7 +14,7 @@ To analyze sales data to derive insights of E-commerce for developing marketing 
 
 - Create Customers table
 
-```
+``` sql
 #Customers Table
 
 CREATE TABLE IF NOT EXISTS Customers ( 
