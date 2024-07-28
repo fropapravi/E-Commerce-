@@ -35,7 +35,7 @@ INSERT INTO Customers (CustomerID, CustomerName, Country) VALUES
 ```
 - Create Products table
 
-```
+```sql
 CREATE TABLE IF NOT EXISTS Products ( 
 ProductID INT PRIMARY KEY, 
 ProductName VARCHAR(100), 
@@ -46,7 +46,7 @@ Category VARCHAR(50)
 
 - Insert into Products table
 
-```
+```sql
 INSERT INTO Products (ProductID, ProductName, Price, Category) VALUES 
 (1, 'Laptop', 1200.00, 'Electronics'), 
 (2, 'Smartphone', 700.00, 'Electronics'), 
@@ -55,7 +55,7 @@ INSERT INTO Products (ProductID, ProductName, Price, Category) VALUES
 ```
 - Create Transactions Table 
 
-```
+```sql
 CREATE TABLE IF NOT EXISTS Transactions ( 
 TransactionID INT PRIMARY KEY, 
 CustomerID INT, 
@@ -67,7 +67,7 @@ TransactionDate DATE
 ```
 - Insert into Transactions Table 
 
-```
+```sql
 INSERT INTO Transactions (TransactionID, CustomerID, ProductID, Quantity, 
 TransactionDate) VALUES 
 (1, 1, 1, 1, '2023-03-15'), 
@@ -82,7 +82,7 @@ TransactionDate) VALUES
 
 - What is the total revenue generated from each product category? 
   
-```
+```sql
 SELECT 
   P.Productname 
 AS 
@@ -100,7 +100,7 @@ ON
 
 - Which customer made the highest number of transactions? 
 
-```
+```sql
 SELECT 
   C.Customername 
 AS 
@@ -124,7 +124,7 @@ LIMIT 1
 
 - List products that have never been sold. 
   
-```
+```sql
 SELECT 
   T.Quantity,
   P.Productname 
@@ -140,7 +140,7 @@ WHERE
 
 - What is the average transaction value for each country? 
 
-```
+```sql
 SELECT 
   C.Country, 
   ROUND(AVG(P.Price)) 
@@ -158,10 +158,11 @@ ON
   T.Customerid = C. Customerid 
 GROUP BY 
   C.Country 
-  ```
+```
+
 - Which product category is most popular in terms of quantity sold? 
 
-```
+```sql
 SELECT 
   P.Category, 
   MAX(T.Quantity) 
@@ -180,7 +181,7 @@ ORDER BY
 LIMIT 1 
 ```
 - Identify customers who have spent more than $1000 in total?
-```
+```sql
 SELECT 
   C.Customername 
 FROM 
@@ -200,7 +201,7 @@ HAVING
   ```
 
 - How many transactions involved purchasing more than one item ? 
-``` 
+```sql
 SELECT 
   COUNT(Transactionid) 
 AS 
@@ -211,7 +212,7 @@ WHERE
   Quantity > 1 
   ```
 - What is the difference in total sales between 'Electronics' and 'Furniture' categories? 
-``` 
+```sql 
 SELECT  
   SUM(CASE 
       WHEN P.Category = 'Electronics' THEN
@@ -229,7 +230,7 @@ ON
   P.Productid = T.Productid 
   ```
 - Which country has the highest average spending per transaction? 
-``` 
+```sql
 SELECT 
   C.Country, 
   ROUND(AVG(P.Price)) 
@@ -249,7 +250,7 @@ GROUP BY
   C.Country 
   ```
 - For each product, calculate the total revenue and categorize its sales volume as 'High' (more than $500), 'Medium' ($100-$500), or 'Low' (less than $100). 
-```
+```sql
 SELECT 
   SUM(P.Price) 
 AS 
