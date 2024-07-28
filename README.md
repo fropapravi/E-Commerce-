@@ -249,8 +249,7 @@ ON
   P.Productid = T.Productid 
   ```
 ```
-Solution: There is total 1450RS/- Difference in Electronic & Furniture 
-categories
+Solution: There is total 1450RS/- Difference in Electronic & Furniture categories
 ```
 - Which country has the highest average spending per transaction? 
 ```sql
@@ -274,8 +273,8 @@ GROUP BY
   ```
 ```   
 Solution: Cannada = 700 
-     USA = 455 
-     UK = 15
+          USA = 455 
+          UK = 15
 ```
 - For each product, calculate the total revenue and categorize its sales volume as 'High' (more than $500), 'Medium' ($100-$500), or 'Low' (less than $100). 
 ```sql
