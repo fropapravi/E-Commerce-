@@ -274,5 +274,267 @@ ORDER BY
   SUM(P.Price) 
 DESC
 ```
+------ End of Query 1 ------
+## Steps to Form Tables as Follows For Case - 2
 
+- Products Table
+
+```sql
+CREATE TABLE IF NOT EXISTS Products ( 
+ProductID INT PRIMARY KEY, 
+ProductName VARCHAR(100), 
+OriginalPrice DECIMAL(10, 2), 
+DiscountRate DECIMAL(5, 2)  -- Discount rate as a percentage, e.g., 10% discount is 
+represented as 10. 
+); 
+```
+
+- Insert into Products Table
+
+```sql
+INSERT INTO Products (ProductID, ProductName, OriginalPrice, DiscountRate) VALUES 
+(1, 'Laptop', 1200.00, 15), 
+(2, 'Smartphone', 700.00, 10), 
+(3, 'Headphones', 150.00, 5), 
+(4, 'E-Reader', 200.00, 20); 
+```
+- Create Sales Table
+
+```sql
+CREATE TABLE IF NOT EXISTS Sales ( 
+SaleID INT PRIMARY KEY, 
+ProductID INT, 
+QuantitySold INT, 
+SaleDate DATE 
+);   
+```
+
+- Insert into Sales Table(during the 10-day sale period)
+
+```sql
+#sales during the 10-day sale period
+
+INSERT INTO Sales (SaleID, ProductID, QuantitySold, SaleDate) VALUES 
+(1, 1, 2, '2023-03-11'), 
+(2, 2, 3, '2023-03-12'), 
+(3, 3, 5, '2023-03-13'), 
+(4, 1, 1, '2023-03-14'), 
+(5, 4, 4, '2023-03-15'), 
+(6, 2, 2, '2023-03-16'), 
+(7, 3, 3, '2023-03-17'), 
+(8, 4, 2, '2023-03-18'); 
+```
+- Insert into Sales Table(pre-sale transactions)
+
+```
+INSERT INTO Sales (SaleID, ProductID, QuantitySold, SaleDate) VALUES 
+(9, 1, 1, '2023-03-01'), 
+(10, 2, 2, '2023-03-02'), 
+(11, 3, 1, '2023-03-03'), 
+(12, 4, 1, '2023-03-04'), 
+(13, 1, 2, '2023-03-05'), 
+(14, 2, 1, '2023-03-06'), 
+(15, 3, 3, '2023-03-07'), 
+(16, 4, 2, '2023-03-08'), 
+(17, 2, 1, '2023-03-09');
+```
+
+## Query for the Marketing Questions
+
+-  How much revenue was generated each day of the sale? 
+```sql
+SELECT 
+  SUM(P.Originalprice*S.Quantitysold) 
+AS 
+  Revenue, 
+  S.Saledate 
+FROM 
+  Products P
+LEFT JOIN  
+  Sales S 
+ON 
+  P.Productid = S.Productid 
+WHERE 
+  S.Saledate 
+BETWEEN 
+  '2023-03-11'
+AND 
+  '2023-03-17' 
+GROUP BY 
+  S.Saledate 
+ ```
+
+- What was the total discount given during the sale period? 
+```sql
+SELECT  
+  ROUND(SUM(P.Originalprice * S.Quantitysold *        
+  P.Discountrate / 100)) 
+AS 
+  total_discount, 
+  P.Productname 
+FROM  
+  Products P 
+LEFT JOIN  
+  Sales s 
+ON 
+  P.Productid = S.Productid 
+WHERE 
+  S.Saledate 
+BETWEEN 
+  '2023-03-11' 
+AND 
+  '2023-03-17' 
+    GROUP BY  P.Productname 
+  
+```
+
+- How does the sale performance compare in terms of units sold before and during the sale? 
+```sql  
+SELECT 
+  SUM(CASE WHEN S.Saledate BETWEEN '2023-03-11' AND '2023-03-17' 
+      THEN S.Quantitysold ELSE 0 END) 
+      AS units_sold_during_sale, 
+  SUM(CASE WHEN S.Saledate < '2023-03-01' OR S.Saledate > '2023-03-09' 
+      THEN S.Quantitysold ELSE 0 END) 
+      AS units_sold_before_sale 
+FROM Sales S 
+  ```
+
+- What was the average discount rate applied to products sold during the sale? 
+```sql
+SELECT 
+  ROUND(AVG(P.Discountrate),1) 
+AS 
+  average_discount 
+FROM 
+  Products P 
+LEFT JOIN 
+  Sales S 
+ON 
+  P.Productid = S.Productid 
+WHERE 
+  S.Saledate 
+BETWEEN 
+  '2022-03-11' 
+AND 
+  '2023-03-17' 
+  ```
+- Which day had the highest revenue, and what was the top-selling product on that day? 
+```sql 
+SELECT
+  ROUND(SUM(P.OriginalPrice * S.QuantitySold * (1 - P.DiscountRate / 100))) 
+AS 
+  Revenue, 
+  S.Saledate 
+AS 
+  Date, 
+  P.Productname 
+FROM 
+  Products P 
+RIGHT JOIN  
+  Sales S 
+ON 
+  P.Productid = S.Productid 
+GROUP BY 
+  S.Saledate, 
+  P.Productname 
+ORDER BY 
+  Revenue 
+DESC 
+
+```
+- How many units were sold per product category during the sale?  
+```sql 
+SELECT 
+CASE  
+  WHEN P.Productid =  1 then 'Laptop' 
+  WHEN P.Productid = 2 then 'Smartphone' 
+  WHEN P.Productid = 3 then  'Headphones' 
+  WHEN P.Productid = 4 THEN 'E-Reader' 
+  ELSE 'Other' 
+END AS
+  Category, 
+SUM(S.QuantitySold) 
+AS 
+  units_sold 
+FROM 
+  Sales S 
+INNER JOIN  
+  Products P 
+ON 
+  S.Productid = P.Productid 
+WHERE 
+  S.Saledate 
+BETWEEN 
+  '2023-03-11' 
+AND 
+  '2023-03-17' 
+GROUP BY
+  Category 
+  ```
+
+- How many transactions involved purchasing more than one item ?
+
+``` sql
+
+SELECT 
+  COUNT(Transactionid) 
+AS 
+  No_Transaction 
+FROM 
+  Transactions  
+WHERE 
+  Quantity > 1 
+  ```
+- What was the total number of transactions each day? 
+```sql
+SELECT 
+  S.Saledate, 
+  COUNT(S.Quantitysold), 
+  SUM(P.Originalprice)
+AS 
+  Revenue 
+FROM 
+  Products P 
+LEFT JOIN 
+  Sales S 
+ON 
+  P.Productid = S.Productid 
+WHERE 
+  S.Saledate 
+BETWEEN 
+  '2022-03-11' 
+AND 
+  '2023-03-17' 
+GROUP BY 
+  S.Saledate 
+ORDER BY 
+  S.Saledate 
+ASC 
+```
+  
+- Which product had the largest discount impact on revenue? 
+```sql 
+SELECT 
+  P.Productname, 
+  ROUND(SUM(P.OriginalPrice * S.QuantitySold * P.DiscountRate / 100)) 
+AS 
+  Discount_Impact 
+FROM 
+  Products P 
+INNER JOIN  
+  sales s 
+ON 
+  P.Productid = S.Productid 
+GROUP BY 
+  P.Productname 
+ORDER BY 
+  Discount_Impact 
+DESC 
+LIMIT 1
+```
+
+Thank you 
+
+-------------- End of the Query ----------------
    
