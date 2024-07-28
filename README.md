@@ -26,7 +26,7 @@ Country VARCHAR(50)
 
 - Insert into Customer table
 
-```
+```sql
 INSERT INTO Customers (CustomerID, CustomerName, Country) VALUES 
 (1, 'John Doe', 'USA'), 
 (2, 'Jane Smith', 'Canada'), 
